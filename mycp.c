@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
     // char *buffer = malloc(buf_s);
 
     if(!argv[1] || !argv[2]) {
+        perror("Invalid file(s).");
         return -1;
     }
 
