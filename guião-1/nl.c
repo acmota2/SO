@@ -8,7 +8,7 @@ ssize_t readln_bad(int fd, char *line, size_t size) {
     ssize_t _read = 0;
 
     for(char *buf_iter = line;
-        buf_iter != '\n' && (_read += read(fd, buf_iter, 1));
+        *buf_iter != '\n' && (_read += read(fd, buf_iter, 1));
         ++buf_iter);
     
     return _read;
@@ -35,10 +35,22 @@ ssize_t readln(int fd, char *line, ssize_t size) {
 #undef BUF_SIZE
 
 void write_number(size_t line) {
-    char buf[20];
+    char buf[20] = { [19] = ' ' };
+    char *i = &buf[18];
     
+    for(; line != 0; --i) {
+        size_t resto = line % 10;
+        line /= 10;
+        *i = resto + '0';
+    }
+    
+    write(1, buf, i - buf);
 }
 
 int main(int argc, char *argv[]) {
-
+    char buffer[1024];
+    for(size_t i = 0; 1; ++i) {
+        write_number(i);
+        readln(0, buffer, sizeof(buffer));
+    }
 }
