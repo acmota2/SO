@@ -3,5 +3,8 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-    printf("Processo: %ld\nParent: %ld", getpid(), getppid());
+    pid_t child = fork();
+    if(pid != 0) {
+        printf("Processo: %ld\nParent: %ld", getpid(), getppid());
+    }
 }
