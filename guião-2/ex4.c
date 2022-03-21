@@ -6,28 +6,27 @@
 #define MAX_P 10
 
 int main(int argc, char *argv[]) {
-    pid_t children[MAX_P] = { 0 };
-    pid_t parents[MAX_P] = { 0 };
-    pid_t print[MAX_P] = { 0 };
     for(size_t i = 0; i < MAX_P; ++i) {
-        parent[i] = getpid();
-        children[i] = fork();
-        if(children[i]) {
-            printf("Children: %ld\n", children[i]);
+        pid_t child = 0;
+        // each child
+        if((child = fork()) == 0) {
+            printf("Child: %d\nParent: %d\n", getpid(), getppid());
             _exit(i);
+
+        // terrible error handling
+        } else if(child < 0) {
+            perror("You're forked");
+            return 1;
         }
     }
 
     for(size_t i = 0; i < MAX_P; ++i) {
-        wait(&children[i]);
-        print[i] = WIFEXITED(children[i])
-            ? WEXITSTATUS(children[i])
-            : continue;
+        int status;
+        pid_t child = wait(&status);
+        
+        if(WIFEXITED(status)) {
+            int exit = WEXITSTATUS(status);
+            printf("Exit code de %d: %u\n", child, exit);
+        }
     }
-
-    for(
-        size_t i = 0;
-        i < MAX_P;
-        printf("Children exit status: %d", print[i])
-    );
 }

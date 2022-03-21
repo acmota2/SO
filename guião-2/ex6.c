@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
         if(child == 0) {
             for(size_t j = 0; j < COLUNAS; ++j) {
                 if(matrix[i][j] == find_me) {
-                    printf("Found number on position %zu\n", j);
                     _exit(i + 12);
                 }
             }
@@ -42,7 +41,9 @@ int main(int argc, char *argv[]) {
         }
     }
 
+#define BUF_SIZE sizeof("Na linha 0\n")
     bool found = false;
+    char buffer[10][BUF_SIZE] = { 0 };
     for(size_t i = 0; i < LINHAS; ++i) {
         int status;
         (void) wait(&status);
@@ -50,8 +51,13 @@ int main(int argc, char *argv[]) {
             int exit = WEXITSTATUS(status);
             if(exit > 12) {
                 found = true;
-                printf("Na linha %d\n", exit - 12);
+                snprintf(buffer[exit - 12], BUF_SIZE, "Na linha %d\n", exit - 12);
             }
+        }
+    }
+    for(size_t i = 0; i < 10; ++i) {
+        if(*buffer[i] != '\0') {
+            printf("%s", buffer[i]);
         }
     }
     if(!found)
