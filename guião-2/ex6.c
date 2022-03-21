@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
             printf("%s", buffer[i]);
         }
     }
-    if(!found)
+    if(!found) {
         puts("Didn't find your number.");
+    }
 }
