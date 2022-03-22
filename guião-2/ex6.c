@@ -8,8 +8,6 @@
 #define LINHAS 10U
 #define COLUNAS 912836745UL
 
-static int matrix[LINHAS][COLUNAS] = { 0 };
-
 int main(int argc, char *argv[]) {    
     // srand(clock());
     // // PAPI did it better, mas wtv
@@ -18,9 +16,17 @@ int main(int argc, char *argv[]) {
     //         matrix[i][j] = rand();
     //     }
     // }
-    matrix[4][89327465] = 123;
-    matrix[8][187645] = 123;
-    matrix[9][13456] = 123;
+    static int matrix[LINHAS][COLUNAS] = { 
+        [4] = {
+            [89327465] = 123
+        };
+        [8] = {
+            [187645] = 123
+        };
+        [9] = {
+            [13456] = 123
+        };
+    };
 
     // I don't like this, but it's better
     int find_me = atoi(argv[1]);
