@@ -5,9 +5,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#define SIZE 128
+
 int my_system(char const* command) {
-    char args[128][128] = { 0 };
-    
+    char **args = malloc(SIZE * sizeof(char*));
+    for(char **ptr = args; ptr < args + 8; ++ptr) {
+        *ptr = malloc(SIZE);
+    }
+
     size_t i = 0;
     for(char *end = strchr(command, ' '), *start = strchr(command, ' ');
         end != NULL;
@@ -32,6 +37,8 @@ int my_system(char const* command) {
     return 0;
 }
 
-int main(int argc, char *argv[]) {
+#define PROGRAM "ls"
 
+int main(int argc, char *argv[]) {
+    printf("Program %s exited with code %d\n", PROGRAM, my_system(PROGRAM));
 }

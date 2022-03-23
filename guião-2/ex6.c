@@ -8,7 +8,7 @@
 #define LINHAS 10U
 #define COLUNAS 912836745UL
 
-int main(int argc, char *argv[]) {    
+int main(int argc, char *argv[]) {
     // srand(clock());
     // // PAPI did it better, mas wtv
     // for(size_t i = 0; i < LINHAS; ++i) {
@@ -19,13 +19,13 @@ int main(int argc, char *argv[]) {
     static int matrix[LINHAS][COLUNAS] = { 
         [4] = {
             [89327465] = 123
-        };
+        },
         [8] = {
             [187645] = 123
-        };
+        },
         [9] = {
             [13456] = 123
-        };
+        }
     };
 
     // I don't like this, but it's better
@@ -47,9 +47,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-#define BUF_SIZE sizeof("Na linha 0\n")
     bool found = false;
-    char buffer[10][BUF_SIZE] = { 0 };
+    bool prints[10] = { 0 };
     for(size_t i = 0; i < LINHAS; ++i) {
         int status;
         (void) wait(&status);
@@ -57,13 +56,13 @@ int main(int argc, char *argv[]) {
             int exit = WEXITSTATUS(status);
             if(exit > 12) {
                 found = true;
-                snprintf(buffer[exit - 12], BUF_SIZE, "Na linha %d\n", exit - 12);
+                prints[exit - 12] = true;
             }
         }
     }
     for(size_t i = 0; i < 10; ++i) {
-        if(*buffer[i] != '\0') {
-            printf("%s", buffer[i]);
+        if(prints[i]) {
+            printf("Encontrado na linha %zu", i);
         }
     }
     if(!found) {
