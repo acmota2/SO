@@ -8,6 +8,8 @@
 #define LINHAS 10U
 #define COLUNAS 912836745UL
 
+static int matrix[LINHAS][COLUNAS] = { 0 };
+
 int main(int argc, char *argv[]) {
     // srand(clock());
     // // PAPI did it better, mas wtv
@@ -16,17 +18,9 @@ int main(int argc, char *argv[]) {
     //         matrix[i][j] = rand();
     //     }
     // }
-    static int matrix[LINHAS][COLUNAS] = { 
-        [4] = {
-            [89327465] = 123
-        },
-        [8] = {
-            [187645] = 123
-        },
-        [9] = {
-            [13456] = 123
-        }
-    };
+    matrix[4][89327465] = 123;
+    matrix[8][187645] = 123;
+    matrix[9][13456] = 123;
 
     // I don't like this, but it's better
     int find_me = atoi(argv[1]);
@@ -36,7 +30,7 @@ int main(int argc, char *argv[]) {
         if(child == 0) {
             for(size_t j = 0; j < COLUNAS; ++j) {
                 if(matrix[i][j] == find_me) {
-                    _exit(i + 12);
+                    _exit(i + 10);
                 }
             }
             _exit(i);
@@ -48,21 +42,21 @@ int main(int argc, char *argv[]) {
     }
 
     bool found = false;
-    bool prints[10] = { 0 };
+    bool prints[LINHAS] = { false };
     for(size_t i = 0; i < LINHAS; ++i) {
         int status;
         (void) wait(&status);
         if(WIFEXITED(status)) {
             int exit = WEXITSTATUS(status);
-            if(exit > 12) {
+            if(exit > 10) {
                 found = true;
-                prints[exit - 12] = true;
+                prints[exit - 10] = true;
             }
         }
     }
-    for(size_t i = 0; i < 10; ++i) {
+    for(size_t i = 0; i < LINHAS; ++i) {
         if(prints[i]) {
-            printf("Encontrado na linha %zu", i);
+            printf("Encontrado na linha %zu\n", i);
         }
     }
     if(!found) {
