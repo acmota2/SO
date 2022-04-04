@@ -6,6 +6,8 @@
 #include <unistd.h>
 
 int main(void) {
+    int terminal = dup(1);
+
     int fd = open("/etc/passwd", O_RDONLY, 0640);
     int fd1 = open("./saida.txt", O_RDWR | O_CREAT | O_TRUNC, 0640);
     int fd2 = open("./erros.txt", O_RDWR | O_CREAT | O_TRUNC, 0640);
@@ -45,5 +47,5 @@ int main(void) {
         }
     }
 
-    puts("terminei");
+    write(terminal, "terminei\n", sizeof("terminei\n"));
 }

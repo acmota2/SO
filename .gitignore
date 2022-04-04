@@ -1,6 +1,7 @@
 # outros
 ./guioes/*
 *.txt
+.vscode
 
 # Prerequisites
 *.d

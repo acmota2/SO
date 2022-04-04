@@ -20,5 +20,10 @@ int main(void) {
     (void) dup2(fd2, 2);
     close(fd2);
 
+    int worked = execl("/bin/wc", "wc", NULL);
+    if(worked < 0) {
+        perror("Didn't work.");
+    }
+
     write(terminal, "terminei\n", sizeof("terminei\n"));
 }
