@@ -19,12 +19,13 @@ int main(void) {
     if(child == 0) {
         close(pipo[1]);
         char buffer[BUFFER] = { 0 };
+
         ssize_t reads = 0;
         for(char *buf_ptr = buffer;
             (reads = read(pipo[0], buf_ptr, 16)) > 0;
-            buf_ptr += reads) {
-        }
+            buf_ptr += reads);
         close(pipo[0]);
+
         (void) write(1, buffer, SIZE);
         _exit(1);
     // sanity (c)heck
