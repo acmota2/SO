@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 // #include <time.h>
+#include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -20,13 +21,13 @@ int main(int argc, char *argv[]) {
     static int matrix[LINHAS][COLUNAS] = { 
         [4] = {
             [89327465] = 123
-        };
+        },
         [8] = {
             [187645] = 123
-        };
+        },
         [9] = {
             [13456] = 123
-        };
+        },
     };
 
     // I don't like this, but it's better
