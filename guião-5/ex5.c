@@ -1,58 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
-void the_piper_at_the_gates_of_read(int pipo[2], char *command, char *argv[]) {
-    if(fork() == 0) {
-        close(pipo[1]);
-        dup2(0, pipo[0]);
-        close(pipo[0]);
-
-        execv(command, argv);
-        _exit(1);
-    }
-}
-
-void the_piper_at_the_gates_of_write(int pipo[2], char *command, char *argv[]) {
-    if(fork() == 0) {
-        close(pipo[0]);
-        dup2(1, pipo[1]);
-        close(pipo[1]);
-
-        execv(command, argv);
-        _exit(1);
-    }
-}
+#define COM 4
 
 int main(void) {
-    int pipo[2] = { 0 };
-    (void) pipe(pipo);
+    static char *commands_grep[] = {"grep", "-v", "^#", "/etc/passwd", NULL};
+    static char *commands_cut[] = {"cut", "-f7", "-d:", NULL};
+    static char *commands_uniq[] = {"uniq", NULL};
+    static char *commands_wc[] = {"wc", "-l", NULL};
 
-    char *grep_argv[] = {"-v", "^#", "/etc/passwd", NULL};
-    the_piper_at_the_gates_of_write(
-        pipo,
-        "grep",
-        grep_argv
-    );
+    static char **commands[] = {
+        commands_grep,
+        commands_cut,
+        commands_uniq,
+        commands_wc
+    };
 
-    char *cut_argv[] = {"-f7", "-d:", NULL};
-    the_piper_at_the_gates_of_read(
-        pipo,
-        "cut",
-        cut_argv
-    );
+    int pipo[COM - 1][2] = { 0 };
 
-    char *uniq_argv[] = {NULL};
-    the_piper_at_the_gates_of_read(
-        pipo,
-        "uniq",
-        uniq_argv
-    );
+    for(size_t i = 0; i < COM; ++i) {
+        if(i == 0) {
+            pipe(pipo[0]);
+            if(fork() == 0) {
 
-    char *wc_argv[] = {"-l", NULL};
-    the_piper_at_the_gates_of_read(
-        pipo,
-        "wc",
-        wc_argv
-    );
+                dup2(pipo[0][1], 1);
+                close(pipo[0][0]);
+                close(pipo[0][1]);
+
+                execvp(commands[0][0], commands[0]);
+
+                perror("Exec failed");
+                _exit(1);
+            }
+            close(pipo[0][1]);
+
+        } else if(i < COM - 1) {
+            pipe(pipo[i]);
+            if(fork() == 0) {
+
+                dup2(pipo[i - 1][0], 0);
+                // o de escrita anterior está fechado
+                close(pipo[i - 1][0]);
+
+                dup2(pipo[i][1], 1);
+                close(pipo[i][0]);
+                close(pipo[i][1]);
+
+
+                execvp(commands[i][0], commands[i]);
+
+                perror("Exec failed");
+                _exit(1);
+            }
+            close(pipo[i - 1][0]);
+            close(pipo[i][1]);
+
+
+        } else {
+            if(fork() == 0) {
+
+                dup2(pipo[i - 1][0], 0);
+                close(pipo[i - 1][1]);
+                close(pipo[i - 1][0]);
+
+                execvp(commands[i][0], commands[i]);
+
+                perror("Exec failed");
+                _exit(1);
+            }
+            close(pipo[i - 1][0]);
+        }
+    }
+    for(size_t i = 0; i < COM; ++i) {
+        wait(NULL);
+    }
 }
