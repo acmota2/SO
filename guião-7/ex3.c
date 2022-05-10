@@ -11,9 +11,9 @@ void sigalrm_handler(int signum) {
 // ./multigrep palavra [ficheiro]
 int main(int argc, char *argv[]) {    
     for(size_t i = 2; i < argc; ++i) {
+        alarm(10);
         if(fork() == 0) {
             signal(SIGALRM, sigalrm_handler);
-            alarm(10);
 
             execl("grep", "grep", argv[1], argv[i]);
 
