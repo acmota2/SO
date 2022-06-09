@@ -15,11 +15,10 @@ int main(void) {
             for(ssize_t _read = 0; (_read = read(fifo, buffer, 1024)) > 0;) {
                 write(log, buffer, _read);
             }
+            close(fifo);
         }
 
         wait(NULL);
     }
-
-    close(fifo);
     close(log);
 }
