@@ -18,7 +18,7 @@ int WEXITSTATUS(int status); /* macro */
 ```
 A função `getpid()` devolve ao processo o _process id_ (pid) do mesmo. O tipo `pid_t` não é mais que um tipo que representa _pid_ em C. É, no caso de GNU C pelo menos, nada mais que:
 ```c
-typedef pid_t int;
+typedef int pid_t;
 ```
 Isto é, mais uma vez, um caso em que a um tipo mais simples se faz corresponder uma estrutura maior do sistema operativo. Ou seja, cada processo é, na realidade, uma estrura maior do sistema operativo que contém, entre outras coisas, o parent, os childs e todos os _file descriptors_ abertos nele.
 
