@@ -1,31 +1,32 @@
 # Guiões de SO
 
-Este repositório tem as resoluções completas ou parcialmente completas da Unidade Curricular de Sistemas Operativos válidas para 2021/2022. Disponibiliza-se ainda para cada guião uma breve explicação.
+Este repositório tem as resoluções completas, ou parcialmente completas (informem-me caso haja algo que não seja exercício extra incompleto), da Unidade Curricular de Sistemas Operativos válidas para 2021/2022. 
+Disponibiliza-se para cada guião uma breve explicação.
 
-#### Guião 1
+#### [**Guião 1**](./enunciados_guioes/guiao-01.pdf)
 
-[Resoluções](./guiao-1) | [Enunciado](./enunciados_guioes/guiao-01.pdf) | [Explicação](./guiao-1/README.md)
+[Resoluções](./guiao-1) | [Explicação](./guiao-1/README.md)
 
-#### Guião 2
+#### [**Guião 2**](./enunciados_guioes/guiao-02.pdf)
 
-[Resoluções](./guiao-2) | [Enunciado](./enunciados_guioes/guiao-02.pdf) | [Explicação](./guiao-2/README.md)
+[Resoluções](./guiao-2) | [Explicação](./guiao-2/README.md)
 
-#### Guião 3
+#### [**Guião 3**](./enunciados_guioes/guiao-03.pdf)
 
-[Resoluções](./guiao-3) | [Enunciado](./enunciados_guioes/guiao-03.pdf) | [Explicação](./guiao-3/README.md)
+[Resoluções](./guiao-3) | [Explicação](./guiao-3/README.md)
 
-#### Guião 4
+#### [**Guião 4**](./enunciados_guioes/guiao-04.pdf)
 
-[Resoluções](./guiao-4) | [Enunciado](./enunciados_guioes/guiao-04.pdf) | [Explicação](./guiao-4/README.md)
+[Resoluções](./guiao-4) | [Explicação](./guiao-4/README.md)
 
-#### Guião 5
+#### [**Guião 5**](./enunciados_guioes/guiao-05.pdf)
 
-[Resoluções](./guiao-5) | [Enunciado](./enunciados_guioes/guiao-05.pdf) | [Explicação](./guiao-5/README.md)
+[Resoluções](./guiao-5) | [Explicação](./guiao-5/README.md)
 
-#### Guião 6
+#### [**Guião 6**](./enunciados_guioes/guiao-06.pdf)
 
-[Resoluções](./guiao-6) | [Enunciado](./enunciados_guioes/guiao-06.pdf) | [Explicação](./guiao-6/README.md)
+[Resoluções](./guiao-6) | [Explicação](./guiao-6/README.md)
 
-#### Guião 7
+#### [**Guião 7**](./enunciados_guioes/guiao-07.pdf)
 
-[Resoluções](./guiao-7) | [Enunciado](./enunciados_guioes/guiao-07.pdf) | [Explicação](./guiao-7/README.md)
+[Resoluções](./guiao-7) | [Explicação](./guiao-7/README.md)

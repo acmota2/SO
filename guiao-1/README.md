@@ -26,6 +26,14 @@ Cada _file descriptor_ terá associada uma estrutura do sistema operativo.Esta s
 
 As funções relativas a leitura e escrita (`read` e `write`) retornarão quantos bytes leram dum ficheiro. Este `return` seria do tipo `size_t`, como tudo quanto é tamanho em C, mas como retornam um valor negativo em casos de insucesso (que devem ser verificados, consultar `man 2 read|write`), retornam um _signed `size_t`_, ou seja, um `ssize_t`.
 
-## _Man pages_ úteis
+### _Man pages_ úteis
 
 `man 2 open`, `man 2 close`, `man 2 read`, `man 2 write`, `man 2 lseek`
+
+### _Debugging_
+
+Não há muito que possa ser dito aqui. No caso de ficheiros de texto é possível vizualizar quaisquer alterações usando um editor de texto. Quaisquer outras poderão ser observadas por tentativa e erro, inferindo através do tamanho do ficheiro.
+
+* #### _bugs_ conhecidos
+    * `O_TRUNC`:  a má utilização desta flag pode apagar todo o conteúdo dum ficheiro
+    * `O_XXONLY`: esta flag apenas permite ou a leitura dum ficheiro (`O_RDONLY`) ou escrita (`O_WRONLY`). Para permitir ambas ao mesmo tempo não se faz `O_RDONLY | O_WRONLY` mas sim usa-se a flag `O_RDWR`.

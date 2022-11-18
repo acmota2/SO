@@ -34,8 +34,13 @@ Qualquer função do tipo `execl` terá que ter o caminho especificado para o pr
 Funções que sejam do formato `execp` recebem os seus argumentos como _array_ `NULL` _terminated_ e não separados.
 As funções que sejam do tipo `execv` partem do princípio que irão executar um programa existente na pasta definida como sendo _pasta dos programas_ (normalmente `/bin`) do sistema operativo.
 
-**Um bug comum**: usar uma função do tipo `execl` para um programa que exista em sistemas POSIX. Como não há um único caminho especificado, esta função irá procurar pelo programa na pasta em que o programa que invocou `exec` foi executado.
-
-## _Man pages_ úteis
+### _Man pages_ úteis
 
 `man 3 exec` - todas as funções aparecerão a fazer isto
+
+### _Debugging_
+
+Quanto a este guião apenas não há muito que se possa fazer, visto a _stack_ do processo ser completamente substituída.
+
+* #### _bugs_ conhecidos
+    * Usar uma função do tipo `execl` para um programa que exista em sistemas POSIX. Como não há um único caminho especificado, esta função irá procurar pelo programa na pasta em que o programa que invocou `exec` foi executado.

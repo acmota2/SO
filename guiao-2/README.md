@@ -66,8 +66,27 @@ Desta forma, toda a informação guardada na saída do processo anterior será g
 
 **Notas:** Segundo a _man page_ do `wait()` (`man 2 wait`), cada processo terá que ter um `wait()` após o seu término, independentemente deste ter garantidamente acabado ou não, pois só desta forma o sistema operativo poderá libertar todos os recursos usados por este. No entanto, esta arquitetura pode não ser a esperada na lição desta UC, pelo que tal verificação é aconselhada por parte dos alunos.
 
-## _Man pages_ úteis
+### _Man pages_ úteis
 
 `man 2 getpid`, `man 2 getppid`, `man 2 _exit`, `man 2 wait`, `man 2 waitPID`
 
 `WIFEXITED` e `WEXITSTATUS` têm as suas explicações nas _man pages_ do `wait()`
+
+### _Debugging_
+
+O `gdb`, _debugger_ favorito de toda a gente que alguma vez programou em C, tem comandos específicos para quem pretende visualizar a execução dum programa que crie processos. Nomeadamente, fornece algumas ferramentas para quem queira seguir, de forma _indolor_, a execução dos vários processos:
+
+* `set follow-fork-mode`: esta opção permite escolher se o `gdb` deverá seguir o `parent` ou os `child`.
+    ```bash
+    >> set follow-fork-mode child
+    >> set follow-fork-mode parent
+    ```
+* `set detach-on-fork mode`: esta opção permite decidir se o `gdb` deixa de acompanhar processos quando estes terminam ou não. A navegação entre processos é feita com `inferior #number`.
+    ```bash
+    >> set detach-on-fork mode on
+    >> set detach-on-fork mode off
+
+    >> inferior 1
+    >> inferior 2
+    >> ...
+    ```
