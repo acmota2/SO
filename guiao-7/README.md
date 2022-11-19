@@ -23,7 +23,7 @@ void (*signal(int signum, void(*sighandler)(int)))(int);
 A execução dum sinal efetivamente interrompe a execução atual dum qualquer processo que o receba. Isto significa que operações de _IO_ podem ser interrompidas por um sinal, pelo que se apela ao bom senso de quem programa a forma como se utilizam.
 
 A função `signal()` associa a um sinal, especificado no primeiro argumento com uma _flag_, a função que o processo em questão deverá executar quando recebe esse mesmo sinal. Este sinal pode ser enviado dum qualquer processo através da função `kill()`.
-Observe-se o seguinte exemplo, meramente ilustrativo, que pretende acabar qualquer processo filho quando o pai recebe o sinal `SIGQUIT`:
+Observe-se o seguinte exemplo, meramente ilustrativo, que pretende acabar qualquer processo quando recebe o sinal `SIGQUIT`:
 ```c
 int sigquit_handler(int signum) {
     (void) signum;
