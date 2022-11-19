@@ -27,7 +27,7 @@ Observe-se o seguinte exemplo, meramente ilustrativo, que pretende acabar qualqu
 ```c
 int sigquit_handler(int signum) {
     (void) signum;
-    kill(0, SIGINT);
+    kill(getpid(), SIGINT);
 }
 
 int main(void) {
