@@ -5,13 +5,7 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-    unsigned char buf[4096];
-
-    // para efeitos de teste:
-    // int buf_s = atoi(argv[3]);
-    // char *buffer = malloc(buf_s);
-
-    if(!argv[1] || !argv[2]) {
+    if(argc < 3) {
         perror("Invalid file(s).");
         return -1;
     }
@@ -19,17 +13,33 @@ int main(int argc, char *argv[]) {
     int fd1 = open(argv[1], O_RDONLY, 0660);
     if(fd1 < 0) {
         perror("Invalid file.");
+        close(fd1);
         return -1;
     }
 
-    int fd2 = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0660);
+    int fd2 = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0666);
     if(fd2 < 0) {
         perror("Invalid file.");
+        close(fd2);
         return -1;
     }
 
-    for(ssize_t i = read(fd1, buffer, buf_s); i > 0; i = read(fd1, buf, 4096)) {
-        write(fd2, buf, i);
+    unsigned char buffer[4096] = { 0 };
+
+    size_t buf_s = 4096;
+    if(argc == 4) {
+        char *save = NULL;
+        buf_s = strtol(argv[3], &save, 10);
+        buf_s = 4096 < buf_s ? 4096 : buf_s;
+        if(!save) {
+            static const char ERROR[] = "This is not the size you wanted.";
+            write(1, ERROR, sizeof(ERROR));
+            return -1;
+        }
+    }
+
+    for(ssize_t i = read(fd1, buffer, buf_s); i > 0; i = read(fd1, buffer, buf_s)) {
+        write(fd2, buffer, i);
     }
     return 0;
 }
